@@ -1,0 +1,174 @@
+/* Fundo branco, texto escuro, uma só cor para links. Nada de vermelho/verde: o site não julga. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: #fff; color: #1b1b1b;
+  font: 18px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+main, .topo-interno, footer { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+a { color: #0a4fb3; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+  outline: 3px solid #0a4fb3; outline-offset: 2px;
+}
+h1 { font-size: 1.6rem; line-height: 1.25; margin: 20px 0 6px; }
+h2 { font-size: 1.3rem; margin: 36px 0 8px; padding-top: 8px; border-top: 1px solid #ddd; }
+h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+p { margin: 8px 0; }
+.fraco { color: #555; font-size: .92rem; }
+.aviso {
+  background: #f4f6f9; border-left: 4px solid #8a99b0; padding: 10px 12px; margin: 12px 0;
+  font-size: .95rem;
+}
+
+/* topo */
+.topo { border-bottom: 1px solid #ddd; }
+.topo-interno { display: flex; align-items: center; gap: 12px; min-height: 52px; flex-wrap: wrap; }
+.topo a { font-weight: 600; text-decoration: none; }
+.topo .mais { margin-left: auto; font-weight: 400; text-decoration: underline; font-size: .95rem; }
+
+/* lista de vereadores */
+.busca { width: 100%; font: inherit; padding: 12px; border: 1px solid #999; border-radius: 8px; margin: 8px 0 16px; }
+.cartoes { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.cartao a {
+  display: flex; gap: 12px; align-items: center; padding: 10px; border: 1px solid #ddd;
+  border-radius: 10px; text-decoration: none; color: inherit; min-height: 76px;
+}
+.cartao a:hover { border-color: #0a4fb3; }
+.cartao .nomep { font-weight: 700; color: #0a4fb3; display: block; }
+.foto {
+  width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #eef1f5;
+  flex: 0 0 60px; display: flex; align-items: center; justify-content: center; color: #555; font-weight: 700;
+}
+.foto-grande { width: 96px; height: 96px; flex-basis: 96px; }
+.cabeca { display: flex; gap: 14px; align-items: center; margin-top: 12px; }
+.cabeca h1 { margin: 0; }
+
+/* abas de ano */
+.anos { display: flex; gap: 8px; margin: 20px 0 4px; flex-wrap: wrap; }
+.anos button, .filtros button {
+  font: inherit; padding: 8px 16px; border: 1px solid #0a4fb3; background: #fff; color: #0a4fb3;
+  border-radius: 999px; cursor: pointer; min-height: 44px;
+}
+.anos button[aria-pressed="true"], .filtros button[aria-pressed="true"] { background: #0a4fb3; color: #fff; }
+.filtros { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+.filtros button { font-size: .9rem; padding: 6px 12px; min-height: 40px; }
+
+/* números */
+.numeros { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
+.numero { border: 1px solid #ddd; border-radius: 10px; padding: 10px 12px; }
+.numero a { font-size: 1.9rem; font-weight: 700; line-height: 1.1; display: inline-block; }
+.numero span { display: block; font-size: .92rem; color: #333; }
+.frase { font-size: 1.15rem; }
+
+/* grupos (abrir e fechar) */
+details { border: 1px solid #ddd; border-radius: 10px; margin: 10px 0; }
+summary {
+  cursor: pointer; padding: 12px; list-style: none; display: flex; gap: 10px; align-items: baseline;
+  min-height: 48px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸"; color: #0a4fb3; }
+details[open] > summary::before { content: "▾"; }
+summary .qtd { margin-left: auto; font-weight: 700; font-size: 1.15rem; }
+summary .titulo-grupo { font-weight: 600; }
+summary small { display: block; font-weight: 400; color: #555; font-size: .88rem; }
+.dentro { padding: 0 12px 12px; }
+
+/* itens (propostas, votos, sessões) */
+.itens { list-style: none; padding: 0; margin: 0; }
+.item { padding: 12px 0; border-top: 1px solid #eee; }
+.item:first-child { border-top: 0; }
+.item .data { font-size: .88rem; color: #555; }
+.item .tit { font-weight: 600; }
+.item .explica { font-size: .88rem; color: #555; }
+.item .texto { margin: 4px 0; }
+.item .meta { font-size: .9rem; color: #333; }
+.item .fonte { font-size: .92rem; }
+.etiqueta {
+  display: inline-block; border: 1px solid #8a99b0; border-radius: 6px; padding: 0 8px;
+  font-size: .9rem; font-weight: 600; background: #f4f6f9;
+}
+.porque { font-size: .85rem; color: #555; }
+.mais-itens { font: inherit; margin: 12px 0 0; padding: 10px 14px; border: 1px solid #0a4fb3; background: #fff; color: #0a4fb3; border-radius: 8px; cursor: pointer; width: 100%; }
+
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid #eee; vertical-align: top; }
+td.n { text-align: right; white-space: nowrap; }
+
+footer { border-top: 1px solid #ddd; margin-top: 48px; padding-top: 12px; padding-bottom: 40px; font-size: .9rem; color: #444; }
+.carregando { color: #555; padding: 20px 0; }
+
+/* botões que parecem links (navegação dentro da página) */
+button.link {
+  font: inherit; background: none; border: 0; padding: 4px 2px; color: #0a4fb3;
+  text-decoration: underline; text-underline-offset: 2px; cursor: pointer; min-height: 32px;
+}
+button.numero-link { font-weight: 700; }
+
+/* ---------------- v3: cores fixas por grupo (a cor nunca é enfeite) */
+.g-b { --k: #1d5fe0; --kt: #eaf1ff; }   /* pedidos de melhoria nos bairros */
+.g-c { --k: #b8500a; --kt: #fff1e6; }   /* perguntas e cobranças */
+.g-h { --k: #b81f66; --kt: #ffeaf3; }   /* homenagens */
+.g-l { --k: #0a7a55; --kt: #e4f7ef; }   /* propostas de lei */
+.g-o { --k: #5b6875; --kt: #eef1f4; }   /* outros */
+
+.pill { display: inline-block; background: #1b1b1b; color: #fff; border-radius: 6px; padding: 1px 8px; font-size: .82rem; font-weight: 700; margin-top: 4px; }
+.metrica { display: block; margin-top: 4px; font-weight: 600; color: #1b1b1b; font-size: .95rem; }
+
+/* página inicial */
+.medidor { border: 2px solid #1b1b1b; border-radius: 16px; padding: 14px 16px; margin: 16px 0 10px; }
+.medidor .ml { display: block; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+.medidor .mv { display: block; font-size: clamp(1.9rem, 8.5vw, 3rem); font-weight: 800; line-height: 1.1; margin: 4px 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.medidor .ms { display: block; font-size: .85rem; color: #555; }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+@media (min-width: 620px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { display: block; background: var(--kt, #f4f6f9); border-radius: 12px; padding: 10px 12px; text-decoration: none; color: #1b1b1b; }
+.stat b { display: block; font-size: 1.7rem; line-height: 1.1; color: var(--k, #1b1b1b); }
+.stat span { font-size: .85rem; }
+.ferramentas { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 8px 0; }
+.campo { display: flex; flex-direction: column; gap: 4px; font-size: .88rem; color: #555; font-weight: 600; }
+.campo input, .campo select, select.busca, textarea.busca { font: inherit; font-weight: 400; color: #1b1b1b; border: 1px solid #999; border-radius: 8px; padding: 10px; background: #fff; width: 100%; }
+
+/* vereador */
+.pres-topo { display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: center; }
+.anel { position: relative; width: 76px; height: 76px; display: block; color: #1b1b1b; text-decoration: none; }
+.anel b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; }
+.contato { font-size: .95rem; overflow-wrap: anywhere; }
+.resumo { margin: 4px 0 2px; font-weight: 600; }
+.oficial { margin: 2px 0 6px; font-size: .85rem; color: #444; }
+.oficial span { font-weight: 700; }
+
+/* ruas e bairros */
+.painel { border: 1px solid #ddd; border-radius: 14px; padding: 14px; margin: 12px 0; }
+.grande { margin: 0 0 8px; }
+.grande b { font-size: 2.6rem; line-height: 1; color: #1d5fe0; margin-right: 6px; }
+.duas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 24px; }
+.rank { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.rank li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; }
+.rank b { font-size: 1.05rem; }
+.barra { grid-column: 1 / 3; height: 6px; background: #eef1f4; border-radius: 3px; overflow: hidden; }
+.barra i { display: block; height: 100%; background: #1d5fe0; }
+.mais-rank { border: 0; margin: 6px 0 0; }
+.mais-rank summary { padding: 6px 0; min-height: 0; font-size: .9rem; color: #0a4fb3; }
+.temas-lista { list-style: none; padding: 0; margin: 0; }
+.temas-lista li { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid #eee; }
+.h3 { font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; margin: 14px 0 4px; }
+
+/* propostas da cidade */
+.divisao { display: flex; height: 14px; border-radius: 7px; overflow: hidden; gap: 3px; margin: 12px 0; }
+.divisao i { display: block; background: var(--k); min-width: 4px; }
+.grupos-cidade { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.grupo-cidade { display: block; background: var(--kt); border-radius: 14px; padding: 12px 14px; text-decoration: none; color: #1b1b1b; border: 2px solid transparent; }
+.grupo-cidade[aria-current="true"] { border-color: var(--k); }
+.grupo-cidade b { display: block; font-size: 1.8rem; color: var(--k); line-height: 1.1; }
+.grupo-cidade .gn { display: block; font-weight: 700; }
+.grupo-cidade .gd { display: block; font-size: .85rem; color: #333; }
+
+/* cobre uma resposta */
+.cobre { border: 2px solid #1b1b1b; border-radius: 14px; padding: 12px; margin: 8px 0 12px; display: flex; flex-direction: column; gap: 6px; }
+.cobre h4 { margin: 0; font-size: 1.1rem; }
+.acoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.botao { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 10px; padding: 10px 14px; font: inherit; font-weight: 700; font-size: .95rem; text-decoration: none; background: #1b1b1b; color: #fff; cursor: pointer; min-height: 44px; }
+.botao.verde { background: #128c4a; }
+.botao.claro { background: #eef1f4; color: #1b1b1b; }
+.acoes .fraco { flex-basis: 100%; overflow-wrap: anywhere; }

@@ -1,0 +1,8 @@
+# gerados pela coleta (o robô baixa e gera de novo a cada execução)
+dados/
+site/dados/
+site/fotos/
+site/_celular.html
+coleta/*.log
+__pycache__/
+*.pyc
