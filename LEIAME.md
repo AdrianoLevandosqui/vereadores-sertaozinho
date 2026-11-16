@@ -2,7 +2,23 @@
 
 Site estático em `site/`, que mostra presença, propostas e votos de cada vereador. Os dados vêm só dos documentos públicos da Câmara Municipal de Sertãozinho.
 
-## Atualizar os dados
+## Site no ar
+
+https://adrianolevandosqui.github.io/vereadores-sertaozinho/ (GitHub Pages, branch `gh-pages`).
+
+Para coletar, conferir e publicar de uma vez (Git Bash, na pasta do projeto):
+
+```
+bash coleta/publicar.sh               # coleta só o que mudou, confere e publica
+bash coleta/publicar.sh --sem-coleta  # só gera e publica o que já foi baixado
+```
+
+O script **não publica** se a conferência com os relatórios oficiais tiver qualquer divergência.
+A coleta precisa rodar deste computador (ou de outra conexão comum): o site da Câmara mostra uma página
+"Bot Verification" para servidores de datacenter, como os do GitHub Actions. Não rode durante sessões
+(segundas e terças à noite, e eventuais sessões extraordinárias).
+
+## Atualizar os dados (passo a passo)
 
 Requer Python 3 e `pdftotext` (vem com o Git para Windows ou com o Poppler).
 
