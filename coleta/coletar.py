@@ -76,10 +76,33 @@ def baixar(url, destino, binario=False):
         FALHAS.append(url)
         print(f"  !! desisti de {url}", flush=True)
         return None
+    # só guarda se for mesmo o documento esperado (um bloqueio pode responder "200" com outra página)
+    problema = documento_invalido(destino, dados)
+    if problema:
+        FALHAS.append(url)
+        trecho = re.sub(r"\s+", " ", dados[:400].decode("utf-8", "replace"))
+        print(f"  !! resposta inesperada ({problema}) em {url}: {trecho[:300]}", flush=True)
+        time.sleep(PAUSA)
+        return None
     with open(destino, "wb") as f:
         f.write(dados)
     time.sleep(PAUSA)
     return dados if binario else dados.decode("utf-8", "replace")
+
+
+def documento_invalido(destino, dados):
+    """Motivo pelo qual a resposta não é o documento esperado, ou '' se estiver certa."""
+    ext = os.path.splitext(destino)[1].lower()
+    if ext == ".pdf":
+        return "" if dados[:5] == b"%PDF-" else "não é PDF"
+    if ext == ".zip":
+        return "" if dados[:2] == b"PK" else "não é ZIP"
+    if ext in (".jpg", ".jpeg", ".png"):
+        return "" if dados[:3] in (b"\xff\xd8\xff", b"\x89PN") else "não é imagem"
+    if ext == ".html":
+        texto = dados.decode("utf-8", "replace")
+        return "" if "camarasertaozinho" in texto and "</html>" in texto.lower() else "não é página da Câmara"
+    return ""
 
 
 def pdf_texto(caminho):
@@ -538,6 +561,8 @@ def main():
 
     print("Vereadores...", flush=True)
     vereadores = coleta_vereadores()
+    if not vereadores:
+        sys.exit("ERRO: nenhum vereador lido. O site da Câmara não respondeu como esperado (veja as mensagens acima).")
     grava_csv("vereadores.csv", vereadores, ["id", "nome", "partido", "url"])
 
     print("Sessões (via relatórios de presença por vereador)...", flush=True)
