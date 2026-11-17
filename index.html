@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radar STZ — o que fazem os vereadores de Sertãozinho</title>
+<meta name="description" content="Raio-X da Câmara de Sertãozinho-SP: presença, propostas, votos e pedidos para cada bairro, com o documento oficial de cada número.">
+<meta name="theme-color" content="#0f1720">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="topo"><div class="topo-interno">
+  <a class="marca" href="#"><img src="favicon.svg" alt="" width="34" height="34">Radar <em>STZ</em></a>
+  <nav class="nav" aria-label="Seções">
+    <a href="#lugares">Bairros</a><a href="#repetidos">Repetidos</a><a href="#propostas">Propostas</a><a href="#vereadores">Vereadores</a><a href="#como-ler">Como ler</a>
+  </nav>
+</div></header>
+
+<main id="app"><p class="carregando">Carregando…</p></main>
+
+<footer><div class="wrap" id="rodape"></div></footer>
+
+<div class="veu" id="veu"></div>
+<div class="folha" id="folha" role="dialog" aria-modal="true" aria-labelledby="fo-t">
+  <div class="fo-topo" id="fo-topo"><span class="fo-ic" id="fo-ic"></span><div><h2 id="fo-t"></h2><p id="fo-s"></p></div>
+    <button class="fechar" id="fo-x" type="button" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="fo-filtros" id="fo-f"></div>
+  <div class="fo-corpo" id="fo-b"></div>
+</div>
+
+<template id="tpl-como-ler"><div class="texto-longo">
+  <h1>Como ler este site</h1>
+  <p>Este site mostra o que está nos registros oficiais da Câmara Municipal de Sertãozinho. Ele não dá notas,
+    não compara vereadores e não diz se algo é bom ou ruim. Todo número tem um link para o documento oficial de onde saiu.</p>
+
+  <h2>De onde vêm os dados</h2>
+  <ul>
+    <li><strong>Presença:</strong> relatórios de presença das sessões, publicados pela Câmara em PDF.</li>
+    <li><strong>Votos:</strong> relatórios de votação de cada sessão, que mostram o voto de cada vereador em cada assunto.</li>
+    <li><strong>Propostas:</strong> lista de “Atividades Legislativas” do site da Câmara, com o texto oficial de cada documento.</li>
+  </ul>
+  <p>Período: 2025 e 2026 (mandato atual), até a última sessão indicada no rodapé.
+    A Câmara só tem registro de presença a partir de 2025.</p>
+
+  <h2>Presença</h2>
+  <ul>
+    <li><strong>Presente:</strong> o vereador estava na sessão.</li>
+    <li><strong>Falta justificada:</strong> faltou e a Câmara registrou um motivo (por exemplo, licença de saúde). O site mostra o motivo quando ele está no registro.</li>
+    <li><strong>Ausente sem justificativa registrada:</strong> faltou e não há motivo no registro oficial.</li>
+  </ul>
+
+  <h2>Votos</h2>
+  <ul>
+    <li><strong>A favor</strong> e <strong>contra</strong>: o voto registrado.</li>
+    <li><strong>Abstenção:</strong> o vereador estava lá, mas não votou nem a favor nem contra.</li>
+    <li><strong>Presidindo a sessão:</strong> quem preside a sessão aparece como “Presidente” no lugar do voto.</li>
+    <li><strong>Voto não registrado:</strong> o relatório da sessão mostra “NÃO REGISTRADO”. Isso aparece principalmente
+      em votações em bloco (vários pedidos votados de uma vez). Não quer dizer que o vereador faltou.</li>
+  </ul>
+  <p class="fraco">Alguns assuntos são votados em dois turnos (1º e 2º). Nesses casos o site mostra os dois votos juntos. Na contagem, se o vereador votou igual nos dois turnos, conta uma vez; se votou diferente, conta cada voto. É a mesma regra do relatório oficial do vereador.</p>
+
+  <h2>Tipos de documento</h2>
+  <div id="tipos"></div>
+
+  <h2 id="grupos">Como separamos as propostas em grupos</h2>
+  <p>Os nomes oficiais (requerimento, moção, indicação…) são difíceis de entender. Por isso o site separa cada proposta
+    em um destes grupos: <strong>Pedidos de melhoria nos bairros</strong>, <strong>Perguntas e cobranças à Prefeitura</strong>,
+    <strong>Homenagens</strong>, <strong>Propostas de lei</strong> e <strong>Outros</strong>.</p>
+  <p>A separação é <strong>automática</strong> e usa <strong>a mesma regra para todos os vereadores</strong>. Ela olha só duas coisas
+    do registro oficial: o <strong>tipo do documento</strong> e <strong>palavras do texto oficial</strong>. As perguntas abaixo são feitas
+    na ordem; vale a primeira resposta que servir. Em cada proposta, o site mostra o motivo de ela estar naquele grupo.</p>
+  <ol>
+    <li><strong>É uma emenda ao orçamento?</strong> → Outros (indica dinheiro da cidade para uma entidade ou área).</li>
+    <li><strong>É uma moção?</strong> Se o texto tem palavras de homenagem ou pesar (lista A) → Homenagens. Se não (por exemplo, apoio ou protesto) → Outros.</li>
+    <li><strong>É um projeto de decreto legislativo?</strong> Se dá título, medalha ou honraria (lista A) → Homenagens. Se não → Outros.</li>
+    <li><strong>É projeto de lei, lei complementar, mudança na Lei Orgânica, emenda ou subemenda?</strong>
+      Se dá nome a rua, praça ou prédio, ou cria data comemorativa → Homenagens. Se não → Propostas de lei.</li>
+    <li><strong>É um projeto de resolução?</strong> → Outros (trata do funcionamento da própria Câmara).</li>
+    <li><strong>É um requerimento ou uma indicação?</strong>
+      <ol type="a">
+        <li>Requerimento sobre o andamento da Câmara (lista B) e sem palavras de obra ou serviço → Outros.</li>
+        <li>Fala de obra, conserto ou serviço público (lista C) → Pedidos de melhoria nos bairros.</li>
+        <li>Pede estudo ou “possibilidade” de algo (lista D) <em>e</em> cita um lugar da cidade (lista E) → Pedidos de melhoria nos bairros.</li>
+        <li>Pede estudo de algo sem citar lugar, ou é uma indicação que não caiu nas regras anteriores → Outros (sugestão de programa ou ação).</li>
+        <li>Pede informações ou explicações (lista F) → Perguntas e cobranças à Prefeitura.</li>
+        <li>O que sobrar → Outros.</li>
+      </ol>
+    </li>
+  </ol>
+  <p class="aviso">Por que muitos requerimentos ficam em “melhoria”: em Sertãozinho, a maioria deles é escrita como
+    “Requer informações sobre a possibilidade de… [instalar uma lombada na Rua X]”. Na prática é um pedido de melhoria, então a regra o coloca nesse grupo.</p>
+  <p>A regra pode errar, porque olha palavras e não entende o texto como uma pessoa. Por isso cada proposta tem o link para o documento oficial.
+    A contagem oficial da Câmara, por tipo de documento, também aparece na página de cada vereador.</p>
+  <p class="fraco">As palavras são procuradas sem acento e sem diferença entre maiúsculas e minúsculas, e podem ser o começo de uma palavra
+    (por exemplo, “iluminac” encontra “iluminação”).</p>
+  <div id="listas"><p class="carregando">Carregando as listas de palavras…</p></div>
+
+  <h2>Salário, eleição, Mesa e contatos</h2>
+  <ul>
+    <li><strong>Salário (subsídio):</strong> é o valor do “Demonstrativo de cargos e salários” publicado pela Câmara na Transparência.
+      É o valor bruto por mês, igual para todos os vereadores.</li>
+    <li><strong>Contador da página inicial:</strong> é uma <strong>estimativa</strong>. Multiplica 19 cadeiras pelo subsídio mensal,
+      proporcional ao tempo desde 1º de janeiro de 2025. Não inclui 13º salário, descontos nem outros pagamentos.</li>
+    <li><strong>Votos na eleição de 2024:</strong> vêm dos dados abertos do Tribunal Superior Eleitoral (TSE). O site mostra os votos
+      nominais e a situação que o TSE informa (por exemplo, “eleito por QP”, quociente partidário, ou “eleito por média”).</li>
+    <li><strong>Mesa Diretora:</strong> cargos da Mesa atual, como aparecem no site da Câmara.</li>
+    <li><strong>Contatos:</strong> e-mail e telefones publicados no perfil oficial de cada vereador. O site não sabe se o celular atende WhatsApp.</li>
+  </ul>
+
+  <h2>Ordenar a lista e “quem mais pediu”</h2>
+  <p>A lista de vereadores pode ser ordenada por faltas, propostas de lei, homenagens, pedidos para os bairros ou votos “não”.
+    Os números somam 2025 e 2026 e são os mesmos da página de cada vereador, onde cada um tem o link do documento oficial.
+    Ordenar não é nota: um número maior ou menor não diz se o trabalho foi bom ou ruim. Por exemplo, quem preside a sessão quase não vota,
+    e quem entrou no meio do mandato teve menos sessões.</p>
+  <p><strong>Votações em que todos votaram igual:</strong> conta cada votação (cada turno separado) em que houve ao menos um voto registrado
+    “a favor”, “contra” ou “abstenção”. Se todos os votos registrados foram iguais, ela entra na conta. “Não registrado” e “Presidente” não entram.</p>
+  <p><strong>Resumo dos pedidos:</strong> para facilitar a leitura, o site tira o começo padrão dos textos (“Requer informações do Executivo
+    Municipal sobre a possibilidade de serem realizados estudos objetivando…”). É um corte automático. O texto oficial completo aparece logo abaixo do resumo.</p>
+  <p><strong>Cobre uma resposta:</strong> nos pedidos repetidos, o site monta uma mensagem que você pode ajustar e mandar ao vereador.
+    A mensagem só repete os números oficiais e pergunta o que a Prefeitura respondeu. Ela não afirma que o problema continua; se continua, diga você.</p>
+
+  <h2 id="regra-lugares">Busca por rua ou bairro e pedidos repetidos</h2>
+  <p><strong>A busca</strong> procura o texto que você digitou dentro do texto oficial de cada pedido (requerimentos e indicações,
+    e também outras propostas que citam algum lugar), sem diferença de acento ou maiúsculas. Se o pedido escreveu o nome da rua
+    de outro jeito (por exemplo, abreviado), ele pode não aparecer: tente só uma parte do nome.</p>
+  <p><strong>Os nomes de ruas e bairros</strong> (usados nas sugestões e nos pedidos repetidos) são lidos automaticamente do texto:
+    o site procura palavras como “Rua”, “Avenida”, “Praça”, “Estrada”, “Jardim”, “Bairro”, “Vila” e “Conjunto Habitacional”
+    e pega o nome que vem depois, até uma vírgula, um número ou palavras como “próximo”, “entre” e “no bairro”.
+    Em três amostras sorteadas e conferidas à mão, a leitura dos nomes de rua acertou cerca de 94% das vezes.
+    É uma estimativa, não uma garantia.</p>
+  <p><strong>Pedidos repetidos</strong> são os casos em que dois ou mais requerimentos ou indicações citam <strong>a mesma rua</strong>
+    e <strong>o mesmo tipo de pedido</strong>. O tipo de pedido também é lido por palavras do texto:</p>
+  <div id="tipos-pedido"><p class="carregando">Carregando…</p></div>
+  <p class="aviso"><strong>Pedido repetido não prova que a Prefeitura ignorou o pedido.</strong> Pode ser que o pedido tenha sido atendido
+    e o problema voltado; que cada pedido fale de um trecho diferente da mesma rua; que a Prefeitura tenha respondido explicando o
+    que pode ou não ser feito; ou que vereadores diferentes tenham pedido a mesma coisa.</p>
+
+  <h2 id="conferencia">Como os dados foram conferidos</h2>
+  <p>Antes de publicar, os números do site foram comparados com outras publicações oficiais da Câmara:</p>
+  <ul>
+    <li><strong>Presença × lista de presença assinada:</strong> cada sessão tem uma lista de presença assinada digitalmente.
+      Ela é igual à lista usada no site em <strong>158 de 158</strong> sessões.</li>
+    <li><strong>Presença × ata da sessão:</strong> a ata (o resumo escrito da sessão) diz quem faltou.
+      Ela confere com a lista de presença em <strong>155 de 158</strong> sessões. Nas outras <strong>3</strong>, a ata registra
+      a presença de um jeito diferente; o site mostra um aviso nessas faltas, com link para a ata.
+      Cinco sessões ainda não tinham ata publicada.</li>
+    <li><strong>Número de sessões:</strong> o Relatório de Atividades 2025 da Câmara informa 77 sessões ordinárias e
+      10 extraordinárias, 87 no total. É o mesmo número de sessões de 2025 com lista de presença. Sessões solenes não têm lista de presença.</li>
+    <li><strong>Propostas:</strong> a contagem de cada vereador, por tipo, é igual à do perfil oficial (todos os vereadores, 2025 e 2026)
+      e à do Relatório de Atividades 2025 (130 de 130 números conferidos).</li>
+    <li><strong>Votos:</strong> as contagens de votos a favor, contra, abstenções e “presidente” são iguais às do relatório oficial de votações de cada vereador.</li>
+  </ul>
+  <h3>O que é estimativa ou não foi confirmado</h3>
+  <ul>
+    <li>Os <strong>grupos de propostas</strong> são uma separação automática deste site. Numa amostra de 60 propostas conferidas à mão, 56 estavam no grupo esperado.</li>
+    <li>Os <strong>nomes de ruas e bairros</strong> e os <strong>pedidos repetidos</strong> dependem da leitura automática do texto (acerto estimado de cerca de 94% nos nomes de rua).</li>
+    <li>O <strong>contador de salário</strong> da página inicial é uma estimativa (19 subsídios por mês desde a posse, sem 13º nem outros pagamentos).</li>
+    <li>O <strong>resumo</strong> de cada pedido é um corte automático do texto oficial; o texto oficial aparece sempre logo abaixo.</li>
+    <li>O <strong>significado de “voto não registrado”</strong> não é explicado pela Câmara. O site só descreve onde ele aparece.</li>
+    <li>A diferença entre <strong>falta justificada e não justificada</strong> não foi comparada com as atas.</li>
+    <li>Os <strong>totais gerais</strong> do Relatório de Atividades 2025 diferem um pouco das listas do site da Câmara
+      (11 requerimentos, 5 projetos de lei e 2 indicações a mais nas listas), e não foi possível descobrir por quê.
+      Os números por vereador conferem.</li>
+  </ul>
+
+  <h2>Propostas assinadas por vários vereadores</h2>
+  <p>Muitas propostas são assinadas por mais de um vereador. Nesse caso, ela aparece na página de cada um que assinou,
+    com o aviso “Assinada junto com mais N vereadores”. É assim também que a Câmara conta no perfil oficial de cada vereador.</p>
+
+  <h2>O Radar STZ não é o site da Câmara</h2>
+  <p>É um site independente. Os documentos oficiais estão no <a href="https://www.camarasertaozinho.sp.gov.br/">site da Câmara Municipal de Sertãozinho</a>.</p>
+</div></template>
+
+<script src="comum.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
