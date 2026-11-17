@@ -77,20 +77,22 @@ function iniciais(nome) {
   return nome.split(/\s+/).filter(p => p.length > 2).slice(0, 2).map(p => p[0]).join("").toUpperCase();
 }
 
-function foto(v, grande) {
-  const cls = "foto" + (grande ? " foto-grande" : "");
-  if (!v.foto) return `<span class="${cls}" aria-hidden="true">${esc(iniciais(v.nome))}</span>`;
-  return `<img class="${cls}" src="${esc(v.foto)}" alt="Foto de ${esc(v.nome_politico || v.nome)}" loading="lazy" width="${grande ? 96 : 60}" height="${grande ? 96 : 60}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'${cls}',textContent:'${esc(iniciais(v.nome))}'}))">`;
+// foto oficial do vereador; se não houver (ou não carregar), mostra as iniciais
+function foto(v, cls, tam) {
+  const ini = esc(iniciais(v.nome_politico || v.nome));
+  if (!v.foto) return `<span class="${cls}" aria-hidden="true">${ini}</span>`;
+  return `<img class="${cls}" src="${esc(v.foto)}" alt="" loading="lazy" width="${tam}" height="${tam}"
+    onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'${cls}',textContent:'${ini}'}))">`;
 }
 
 function n(x) { return Number(x).toLocaleString("pt-BR"); }
 
 function rodape(ultima) {
-  const f = document.querySelector("footer");
+  const f = document.getElementById("rodape");
   if (!f) return;
   f.innerHTML = `
-    <p><strong>Este não é o site oficial da Câmara.</strong> É um site independente que reúne dados públicos
-    publicados pela <a href="${BASE}/">Câmara Municipal de Sertãozinho</a>. Todo número tem um link para o documento oficial de onde saiu.</p>
-    <p>Dados até a sessão de ${esc(ultima)}. O site não dá notas nem opiniões: só mostra o que está nos registros oficiais.
-    <a href="#como-ler">Como ler este site</a>.</p>`;
+    <p><strong>Radar STZ</strong> é um projeto independente, sem vínculo com a Câmara, com a Prefeitura ou com partidos.
+    Reúne só dados públicos da <a href="${BASE}/">Câmara Municipal de Sertãozinho</a> e do TSE, e cada número tem um link para o documento oficial de onde saiu.</p>
+    <p>Dados até a sessão de ${esc(ultima)}. <a href="#como-ler">Como ler este site</a> · <a href="#conferencia">Como os dados foram conferidos</a> ·
+    <a href="https://github.com/AdrianoLevandosqui/vereadores-sertaozinho">Código aberto</a>.</p>`;
 }

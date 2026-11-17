@@ -3,44 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>O que fazem os vereadores de Sertãozinho</title>
-<meta name="description" content="Presença, propostas e votos de cada vereador de Sertãozinho-SP, com link para os documentos oficiais da Câmara.">
+<title>Radar STZ — o que fazem os vereadores de Sertãozinho</title>
+<meta name="description" content="Raio-X da Câmara de Sertãozinho-SP: presença, propostas, votos e pedidos para cada bairro, com o documento oficial de cada número.">
+<meta name="theme-color" content="#0f1720">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <header class="topo"><div class="topo-interno">
-  <a href="#">Vereadores de Sertãozinho</a>
-  <span class="mais"><a href="#lugares">Ruas e bairros</a> · <a href="#propostas">Propostas</a> · <a href="#como-ler">Como ler</a></span>
+  <a class="marca" href="#"><img src="favicon.svg" alt="" width="34" height="34">Radar <em>STZ</em></a>
+  <nav class="nav" aria-label="Seções">
+    <a href="#lugares">Bairros</a><a href="#repetidos">Repetidos</a><a href="#propostas">Propostas</a><a href="#vereadores">Vereadores</a><a href="#como-ler">Como ler</a>
+  </nav>
 </div></header>
+
 <main id="app"><p class="carregando">Carregando…</p></main>
-<footer></footer>
 
-<template id="tpl-lista">
-  <h1>O que fazem os vereadores de Sertãozinho</h1>
-  <p>Veja, para cada vereador, <strong>se foi às sessões</strong>, <strong>o que propôs</strong> e <strong>como votou</strong>.
-  Tudo vem dos documentos oficiais da Câmara Municipal, e cada número tem um link para o documento de origem.</p>
+<footer><div class="wrap" id="rodape"></div></footer>
 
-  <div id="heroi"></div>
+<div class="veu" id="veu"></div>
+<div class="folha" id="folha" role="dialog" aria-modal="true" aria-labelledby="fo-t">
+  <div class="fo-topo" id="fo-topo"><span class="fo-ic" id="fo-ic"></span><div><h2 id="fo-t"></h2><p id="fo-s"></p></div>
+    <button class="fechar" id="fo-x" type="button" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="fo-filtros" id="fo-f"></div>
+  <div class="fo-corpo" id="fo-b"></div>
+</div>
 
-  <p class="aviso"><strong>Quer saber o que foi pedido para a sua rua ou bairro?</strong>
-    <a href="#lugares">Buscar por rua ou bairro</a></p>
-
-  <h2>Os vereadores</h2>
-  <div class="ferramentas">
-    <label class="campo" for="busca">Buscar por nome
-      <input id="busca" type="search" placeholder="Ex.: Niltinho, Edna, Juan..." autocomplete="off"></label>
-    <label class="campo" for="partido">Partido
-      <select id="partido"></select></label>
-    <label class="campo" for="ordem">Ordenar por
-      <select id="ordem"></select></label>
-  </div>
-  <p id="conta" class="fraco" aria-live="polite"></p>
-  <ul id="lista" class="cartoes"></ul>
-  <p id="nada" class="fraco" hidden>Nenhum vereador com esse nome. Apague a busca ou escolha “Todos”.</p>
-  <p class="fraco">Os números usados para ordenar somam 2025 e 2026. Toque no vereador para ver cada número com o link do documento oficial.</p>
-</template>
-
-<template id="tpl-como-ler">
+<template id="tpl-como-ler"><div class="texto-longo">
   <h1>Como ler este site</h1>
   <p>Este site mostra o que está nos registros oficiais da Câmara Municipal de Sertãozinho. Ele não dá notas,
     não compara vereadores e não diz se algo é bom ou ruim. Todo número tem um link para o documento oficial de onde saiu.</p>
@@ -179,9 +171,9 @@
   <p>Muitas propostas são assinadas por mais de um vereador. Nesse caso, ela aparece na página de cada um que assinou,
     com o aviso “Assinada junto com mais N vereadores”. É assim também que a Câmara conta no perfil oficial de cada vereador.</p>
 
-  <h2>Este não é o site da Câmara</h2>
+  <h2>O Radar STZ não é o site da Câmara</h2>
   <p>É um site independente. Os documentos oficiais estão no <a href="https://www.camarasertaozinho.sp.gov.br/">site da Câmara Municipal de Sertãozinho</a>.</p>
-</template>
+</div></template>
 
 <script src="comum.js"></script>
 <script src="app.js"></script>

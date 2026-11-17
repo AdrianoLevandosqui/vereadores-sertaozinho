@@ -282,6 +282,8 @@ def main():
         lista_ver.append({**{k: saida[k] for k in ("id", "nome", "nome_politico", "partido", "foto",
                                                      "em_exercicio", "primeira_sessao", "ultima_sessao")},
                           "mesa": saida.get("mesa", {}).get("cargo", ""), "contato": saida.get("contato"),
+                          "tse": {"v": int(saida["tse"]["votos_nominais"]), "s": saida["tse"]["situacao"]}
+                          if saida.get("tse") else None, "entrou_depois": saida["entrou_depois"],
                           "r": resumo})
         print(f"  {nome}: {kb} KB", flush=True)
 
